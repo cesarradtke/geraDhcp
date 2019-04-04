@@ -90,8 +90,8 @@ function geraDhcp(){
     
 
     # GEPOIS gera novo arquivo, apagando linhas invalidas
-    sed '/^#/d;/^\s*$/d;s/,//g' $1.sed > $1.tmp2
-    cat $1.tmp2 | tr -s "\t#\t" "#" > $1.tmp
+    sed '/^#/d;/^\s*$/d;s/,//g' $1.sed > $1.tmp
+    
 
     # Seleciona as subredes cadastradas na planilha excluindo valores repetidos
     theSubnets=`cut -d"#" -f1 $1.tmp | uniq`
@@ -101,7 +101,7 @@ function geraDhcp(){
     do
         echo -e "\e[32;1m `date +%x" "%X`  PROCESSANDO SUBREDE $i \e[m"
         # Gerando novos arquivos, filtrando por sub-redes 
-        grep -w ^$i $1.tmp | tr " " "_"  > $1.tmp.$i 
+        grep -w ^$i $1.tmp | tr -d [:blank:] > $1.tmp.$i 
         
         # Utiliza do $1 para refereciar o nome do arquivo
         formataSubnet $1 
@@ -110,7 +110,7 @@ function geraDhcp(){
         rm -f $1.tmp.$i
     done
 
-    rm -f $1.sed $1.tmp $1.tmp2
+    rm -f $1.sed $1.tmp
 
     # Utiliza do $1 para refereciar o nome do arquivo
     geraFileHosts $1
@@ -144,7 +144,7 @@ function formataSubnet(){
         local aIp=$aSubrede.$aIpFinal
         local aIpValido=$( ipValido $aIp )
         local aMac=`echo $aLinha | sed 's/^[^#]*#[^#]*#[^#]*#//;s/#/ /g'  | sed 's/^[ \t]*//'`
-         local aComentario=`echo $aLinha | awk -F"#" '{print $5}'`
+        local aComentario=`echo $aLinha | cut -d'#' -f6`
         if [ ${#aComentario} -gt 0 ];  then
             aLinha=`echo $aLinha | sed 's/'$aComentario'//g'`
         fi
