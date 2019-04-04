@@ -1,0 +1,23 @@
+# Bolsitas
+# POSSUI RESTRICAO de acesso entre os polls
+shared-network U07VLAN025.bolsitasJaguarao {
+
+    # Equipamentos institucionais/cadastrados
+    subnet 10.7.144.0 netmask 255.255.248.0 {
+        option routers 10.7.144.1;
+        # lease padrao 2/4h
+        pool {            
+            range 10.7.148.0 10.7.151.250;
+            deny unknown-clients;
+        }
+    }
+
+    # Equipamentos pessoais/nao cadastrados
+    subnet 10.7.152.0 netmask 255.255.248.0 {
+        option routers 10.7.152.1;
+        # lease padrao 2/4h        
+        pool {
+            range 10.7.152.2 10.7.159.250;
+            allow unknown-clients;
+        }
+    }

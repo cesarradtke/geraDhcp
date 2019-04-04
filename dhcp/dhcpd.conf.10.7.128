@@ -1,0 +1,23 @@
+# Professores e Equipamentos institucionais de laboratórios
+# POSSUI RESTRICAO de acesso entre os polls
+shared-network U07VLAN024.professoresJaguarao {
+
+    # Equipamentos institucionais/cadastrados
+    subnet 10.7.128.0 netmask 255.255.248.0 {
+        option routers 10.7.128.1;
+        # lease padrao 2/4h
+        pool {
+            range 10.7.135.0 10.7.135.250;
+            deny unknown-clients;
+        }
+    }
+
+    # Equipamentos pessoais/nao cadastrados
+    subnet 10.7.136.0 netmask 255.255.248.0 {
+        option routers 10.7.136.1;
+        # lease padrao 2/4h
+        pool {
+            range 10.7.136.2 10.7.143.250;
+            allow unknown-clients;
+        }
+    }

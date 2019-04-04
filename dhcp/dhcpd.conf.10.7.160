@@ -1,0 +1,24 @@
+# Alunos e Equipamentos institucionais de laboratórios
+# POSSUI RESTRICAO de acesso entre os polls
+shared-network U07VLAN026.academicoJaguarao {
+
+    # Equipamentos institucionais/cadastrados
+    subnet 10.7.160.0 netmask 255.255.248.0 {
+        option routers 10.7.160.1;
+        # lease padrao 2/4h
+        pool {
+            range 10.7.164.0 10.7.167.250;
+            deny unknown-clients;
+        }
+    }
+
+    # Equipamentos pessoais/nao cadastrados
+    subnet 10.7.168.0 netmask 255.255.248.0 {
+        option routers 10.7.168.1;
+        # lease padrao 2/4h
+        option domain-name-servers 200.132.146.42, 200.132.148.30, 8.8.8.8, 8.8.4.4;
+        pool {
+            range 10.7.168.2 10.7.175.250;
+            allow unknown-clients;
+        }
+    }

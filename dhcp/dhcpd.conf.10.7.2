@@ -1,0 +1,9 @@
+# Rede VOiP - Destinada a todos os dispositivos VOiP
+shared-network U07VLAN021.voipJaguarao {    
+
+    subnet 10.7.2.0 netmask 255.255.254.0 {
+		default-lease-time 14400; #4h
+        max-lease-time 28800; #8h
+        option routers 10.7.2.1;
+        deny unknown-clients;
+    }

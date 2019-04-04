@@ -1,0 +1,9 @@
+# Rede servidores - NÃO RECOMENDADO USO VIA DHCP
+shared-network U07VLAN020.servidoresJaguarao {    
+
+    subnet 10.7.0.0 netmask 255.255.255.0 {
+        default-lease-time 28800; #8h
+		max-lease-time 57600; #16h
+        option routers 10.7.0.1;
+        deny unknown-clients;
+    }

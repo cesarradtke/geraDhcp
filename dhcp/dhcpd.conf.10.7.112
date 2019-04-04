@@ -1,0 +1,23 @@
+# Taes e Equipamentos institucionais de laboratórios
+# POSSUI RESTRICAO de acesso entre os polls
+shared-network U07VLAN022.administrativoJaguarao {
+
+    # Equipamentos institucionais/cadastrados
+    subnet 10.7.112.0 netmask 255.255.248.0 {
+        option routers 10.7.112.1;
+        # lease padrao 2/4h
+        pool {
+            range 10.7.116.0 10.7.119.250;
+            deny unknown-clients;
+        }
+    }
+
+    # Equipamentos pessoais/nao cadastrados
+    subnet 10.7.120.0 netmask 255.255.248.0 {
+        option routers 10.7.120.1;
+        # lease padrao 2/4h
+        pool {
+            range 10.7.120.2 10.7.127.250;
+            allow unknown-clients;
+        }
+    }
